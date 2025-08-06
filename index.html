@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC P2P Chat</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        #controls {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        #roomControls {
+            display: flex;
+            gap: 10px;
+            flex-grow: 1;
+        }
+        #roomInput {
+            flex-grow: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        #chatContainer {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        #messages {
+            height: 300px;
+            padding: 15px;
+            overflow-y: auto;
+            border-bottom: 1px solid #eee;
+        }
+        .message {
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        .message.you {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .message.remote {
+            color: #e74c3c;
+        }
+        .message.system {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        #messageForm {
+            display: flex;
+            padding: 15px;
+        }
+        #messageInput {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            border-right: none;
+        }
+        #sendMessage {
+            border-radius: 0 4px 4px 0;
+            width: 80px;
+        }
+        #status {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        @media (max-width: 600px) {
+            #controls {
+                flex-direction: column;
+            }
+            #roomControls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>WebRTC P2P Chat</h1>
+
+    <div id="controls">
+        <div id="roomControls">
+            <input type="text" id="roomInput" placeholder="Room name" value="default">
+            <button id="joinRoom">Join Room</button>
+            <button id="leaveRoom" disabled>Leave Room</button>
+        </div>
+    </div>
+
+    <div id="chatContainer">
+        <div id="messages"></div>
+        <form id="messageForm">
+            <input type="text" id="messageInput" placeholder="Type your message..." disabled>
+            <button type="button" id="sendMessage" disabled>Send</button>
+        </form>
+    </div>
+
+    <div id="status">Disconnected. Join a room to start chatting.</div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
